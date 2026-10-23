@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-23T14:20:49.195Z",
+    "mode": "full",
+    "simulateFailure": null,
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) i5-8350U CPU @ 1.70GHz",
+    "cpuCount": 8,
+    "memoryTotalGb": 15.9,
+    "databaseEngine": "in-memory (InMemoryNotificationRepository)",
+    "planningTargets": {
+      "dailyVolume": 50000000,
+      "averageRps": 578.7,
+      "peakRps": 5787,
+      "targetLatencyP95Ms": 500,
+      "targetLatencyP99Ms": 1000
+    }
+  },
+  "benchmarks": {
+    "smoke": {
+      "requests": 100,
+      "concurrency": 5,
+      "transport": "http",
+      "durationSec": 0.09069900000000002,
+      "completedCount": 100,
+      "errorCount": 0,
+      "throughputRps": 1102.55,
+      "statusCounts": {
+        "202": 100
+      },
+      "percentiles": {
+        "min": 2.23,
+        "p50": 2.95,
+        "p90": 5.3,
+        "p95": 22.6,
+        "p99": 24.37,
+        "max": 24.37,
+        "mean": 4.33
+      },
+      "heapDeltaMb": 0.49,
+      "failed": false,
+      "failureReason": null
+    },
+    "apiHttp": {
+      "requests": 2000,
+      "concurrency": 25,
+      "transport": "http",
+      "durationSec": 0.8133914999999999,
+      "completedCount": 2000,
+      "errorCount": 0,
+      "throughputRps": 2458.84,
+      "statusCounts": {
+        "202": 2000
+      },
+      "percentiles": {
+        "min": 6.02,
+        "p50": 9.18,
+        "p90": 13.5,
+        "p95": 14.56,
+        "p99": 25.66,
+        "max": 25.97,
+        "mean": 10.11
+      },
+      "heapDeltaMb": 11.49,
+      "failed": false,
+      "failureReason": null
+    },
+    "worker": {
+      "totalEvents": 2000,
+      "batchSize": 50,
+      "totalDelivered": 2000,
+      "errorCount": 0,
+      "retriedCount": 0,
+      "suppressedCount": 0,
+      "fencedOutCount": 0,
+      "timeoutCount": 0,
+      "durationSec": 0.028473300000000108,
+      "throughputItemsPerSec": 70241.24,
+      "batchPercentiles": {
+        "min": 0.16,
+        "p50": 0.49,
+        "p90": 1.47,
+        "p95": 2.33,
+        "p99": 4.98,
+        "max": 4.98,
+        "mean": 0.71
+      },
+      "failed": false,
+      "failureReason": null
+    },
+    "pipeline": {
+      "count": 1000,
+      "concurrency": 25,
+      "completedIngest": 1000,
+      "errorCount": 0,
+      "ingestDurationSec": 0.3612338,
+      "ingestRps": 2768.29,
+      "totalDurationSec": 1.2514464,
+      "deliveredCount": 1000,
+      "fencedOutCount": 0,
+      "unfinishedOutboxCount": 0,
+      "failed": false,
+      "failureReason": null
+    }
+  }
+}

@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.tests.json",
     "test": "vitest run",
     "start": "node --env-file-if-exists=.env dist/server.js",
-    "migrate:up": "node --env-file-if-exists=.env scripts/migrate.js"
+    "migrate:up": "node --env-file-if-exists=.env scripts/migrate.js",
+    "load-test": "node load-tests/run-benchmark.js",
+    "load-test:smoke": "node load-tests/run-benchmark.js --mode=smoke"
   },
   "dependencies": {
     "fastify": "^5.0.0",

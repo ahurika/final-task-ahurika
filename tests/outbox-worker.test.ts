@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import type { Pool, PoolClient, QueryResult } from "pg";
 import {
   DeliveryWorker,
@@ -28,11 +28,20 @@ describe("Phase 3 — Outbox Worker & Asynchronous Delivery Engine", () => {
     previousKeys: new Map(),
   };
 
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   class TestClock implements Clock {
     private currentTime: number;
 
     constructor(initialTime = new Date("2026-10-23T12:00:00Z").getTime()) {
       this.currentTime = initialTime;
+      vi.setSystemTime(this.currentTime);
     }
 
     now(): Date {
@@ -41,6 +50,7 @@ describe("Phase 3 — Outbox Worker & Asynchronous Delivery Engine", () => {
 
     advance(ms: number): void {
       this.currentTime += ms;
+      vi.setSystemTime(this.currentTime);
     }
 
     async sleep(ms: number): Promise<void> {
