@@ -1,0 +1,28 @@
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
+coverage/
+.next/
+out/
+
+# Logs and local databases
+*.log
+*.sqlite
+*.sqlite3
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.kombai/
+
+# Test artifacts (keep intentional reports under evidence/)
+playwright-report/
+test-results/
