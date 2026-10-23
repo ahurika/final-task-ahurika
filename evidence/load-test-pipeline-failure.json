@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-23T14:26:51.197Z",
+    "mode": "pipeline",
+    "simulateFailure": "pipeline",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModel": "Intel(R) Core(TM) i5-8350U CPU @ 1.70GHz",
+    "cpuCount": 8,
+    "memoryTotalGb": 15.9,
+    "databaseEngine": "in-memory (InMemoryNotificationRepository)",
+    "planningTargets": {
+      "dailyVolume": 50000000,
+      "averageRps": 578.7,
+      "peakRps": 5787,
+      "targetLatencyP95Ms": 500,
+      "targetLatencyP99Ms": 1000
+    }
+  },
+  "benchmarks": {
+    "pipeline": {
+      "count": 20,
+      "concurrency": 2,
+      "completedIngest": 20,
+      "errorCount": 20,
+      "ingestDurationSec": 0.0359769,
+      "ingestRps": 555.91,
+      "totalDurationSec": 0.1470158,
+      "deliveredCount": 0,
+      "fencedOutCount": 0,
+      "unfinishedOutboxCount": 0,
+      "failed": true,
+      "failureReason": "Pipeline failed: ingested 20/20, delivered 0/20, unfinished outbox 0, errors 20"
+    }
+  }
+}
