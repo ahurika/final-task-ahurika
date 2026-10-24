@@ -1,0 +1,9 @@
+# Development dependencies for Task 4 Phase 2A/2B (Corpus Verification & Extraction)
+# Pure-Python library for PDF page extraction and validation
+pypdf>=5.0.0
+# Pure-Python library for extracting and cleaning HTML documentation into Markdown
+beautifulsoup4>=4.12.0
+# Automated unit and integration testing framework
+pytest>=8.0.0
+# Pure-Python 12-factor environment variable loader for local configuration
+python-dotenv>=1.0.0

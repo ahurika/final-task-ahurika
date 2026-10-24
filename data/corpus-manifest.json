@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "verification_status": "VERIFIED_PASSED",
+  "verification_timestamp_utc": "2026-10-23T15:47:29.165772+00:00",
+  "target_corpus": {
+    "name": "Official PostgreSQL Documentation",
+    "version": "16 (US Letter format)",
+    "format": "PDF (US Letter)",
+    "official_source_url": "https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-US.pdf",
+    "documentation_hub_url": "https://www.postgresql.org/docs/16/",
+    "license": {
+      "name": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "url": "https://www.postgresql.org/about/licence/",
+      "permissive": true
+    }
+  },
+  "verified_artifact": {
+    "relative_path": "data/raw/postgresql-16-US.pdf",
+    "file_name": "postgresql-16-US.pdf",
+    "file_size_bytes": 15162468,
+    "file_size_mb": 14.46,
+    "sha256_hash": "f5316371014f5119fe51c153fffe11185b03504dce46361102761107e77c83ba",
+    "measured_page_count": 3220,
+    "minimum_required_pages": 100,
+    "meets_requirement_req_01": true
+  },
+  "pipeline_status_note": "Corpus collection and page count verified. Document parsing, chunking, and embedding ingestion pipelines are NOT yet implemented."
+}

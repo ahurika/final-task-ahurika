@@ -1,0 +1,58 @@
+flowchart TD
+    %% Ingestion Pipeline
+    subgraph Ingestion_Pipeline ["Ingestion & Indexing Pipeline (Asynchronous)"]
+        direction TB
+        DocInput["Raw PostgreSQL 16 Docs<br/>(PDF Manual & Markdown Files)"] --> DocHash["Compute Document SHA-256 Hash"]
+        DocHash --> DupCheck{"Document Already<br/>Indexed?"}
+        DupCheck -- Yes --> SkipDoc["Skip Ingestion<br/>(Deduplicated via File Hash)"]
+        DupCheck -- No --> DocParser["Parse Document<br/>(Extract Text, Physical Pages & Headings)"]
+        
+        DocParser --> ChunkBranch{"Chunking Strategy Selection"}
+        ChunkBranch -- "Strategy A" --> ChunkFixed["Fixed-Size Window<br/>(500 tokens + 50 overlap)"]
+        ChunkBranch -- "Strategy B" --> ChunkStruct["Structure-Aware Headings<br/>(Max 800 tokens, 50-token coalescing)"]
+        
+        ChunkFixed --> MetaExtract["Extract Chunk Metadata<br/>(Source Filename, Canonical URL, Page/Section, Date, Hash)"]
+        ChunkStruct --> MetaExtract
+        
+        MetaExtract --> EmbedCacheCheck{"Chunk Hash in<br/>Embedding Cache?"}
+        EmbedCacheCheck -- Cache Hit --> ReuseEmbed["Fetch Cached Vector<br/>(Zero API Cost & Zero Latency)"]
+        EmbedCacheCheck -- Cache Miss --> CallEmbed["Call Embedding API<br/>(e.g., text-embedding-3-small)"]
+        CallEmbed --> StoreCache["Persist in embedding_cache Table"]
+        
+        ReuseEmbed --> IndexVector["Index in PostgreSQL + pgvector<br/>(chunks table with HNSW Index)"]
+        StoreCache --> IndexVector
+        IndexVector --> IngestProgress["Update Ingestion Status Endpoint<br/>(Chunks created, embeddings, cache hits)"]
+    end
+
+    %% Query & Generation Pipeline
+    subgraph Query_Pipeline ["Query & Generation Pipeline (Synchronous)"]
+        direction TB
+        UserQuery["User Query via React + Vite Chat UI"] --> RateLimit{"Rate Limiter Check"}
+        RateLimit -- Exceeded --> RateError["Return 429 Too Many Requests"]
+        RateLimit -- Allowed --> EmbedQuery["Generate Query Vector<br/>(Embedding API)"]
+        
+        EmbedQuery --> VectorSearch["Execute Nearest-Neighbor Search in pgvector<br/>(Cosine Distance <=> with Optional Metadata Filters)"]
+        IndexVector -. pgvector HNSW Query .-> VectorSearch
+        
+        VectorSearch --> TopK["Retrieve Top-k Chunks (k=3 or k=5)"]
+        TopK --> SimCheck{"Top Similarity Score<br/>>= Threshold theta?"}
+        
+        SimCheck -- No (Insufficient Evidence) --> PoliteRefusal["Return Polite Refusal<br/>'I cannot answer based on provided documents'"]
+        
+        SimCheck -- Yes (Sufficient Evidence) --> DelimitContext["Assemble XML-Isolated Prompt<br/>(<context>...</context> Defending vs Prompt Injection)"]
+        DelimitContext --> LLMCall["Call LLM Generation<br/>(Strictly Grounded with Citation Instructions)"]
+        
+        LLMCall --> FinalResponse["Synthesize Answer with Citations<br/>(e.g., [Doc: mvcc.md, Section: Concurrency])"]
+        FinalResponse --> TelemetryLog["Log Telemetry to query_telemetry Table<br/>(Latency, Tokens, Cost, Chunk IDs)"]
+        FinalResponse --> ChatDisplay["Render in React Chat UI<br/>(Clicking Citation Opens Chunk Drawer with Verbatim Text & URL)"]
+    end
+
+    classDef success fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
+    classDef warning fill:#fff3e0,stroke:#e65100,stroke-width:1.5px;
+    classDef storage fill:#e3f2fd,stroke:#1565c0,stroke-width:1.5px;
+    classDef process fill:#f3e5f5,stroke:#6a1b9a,stroke-width:1.5px;
+
+    class IndexVector,StoreCache storage;
+    class SkipDoc,PoliteRefusal,RateError warning;
+    class FinalResponse,ChatDisplay success;
+    class ChunkFixed,ChunkStruct,CallEmbed,LLMCall process;

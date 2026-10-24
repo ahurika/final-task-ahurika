@@ -1,0 +1,78 @@
+flowchart TD
+    %% Source Discovery
+    subgraph Discovery ["1. Source Discovery & Inventory"]
+        direction TB
+        Scan["Scan data/raw/ Directory"] --> FilterFiles{"Identify Document Type"}
+        FilterFiles -- "*.pdf" --> PDFSource["data/raw/postgresql-16-US.pdf<br/>(3,220 pages verified)"]
+        FilterFiles -- "*.md" --> MDSource["data/raw/markdown/*.md<br/>(14 official chapters verified)"]
+        FilterFiles -- "data/security/*" --> ExcludeSec["Excluded from Normal Corpus<br/>(Tagged as REQ-14 Test Fixture)"]
+    end
+
+    %% Deduplication Check
+    subgraph Dedup ["2. File Hash Deduplication (REQ-06)"]
+        direction TB
+        CalcFileHash["Compute File SHA-256 Checksum"] --> LookupDoc{"Query documents table<br/>WHERE source_filename = :name"}
+        LookupDoc -- "Hash Unchanged & Exists" --> SkipDoc["Bypass Parsing & Ingestion<br/>(Zero Compute / DB Cost)"]
+        LookupDoc -- "Hash Changed (Modified)" --> PurgeOld["Begin Transaction:<br/>DELETE FROM chunks WHERE document_id = :id"]
+        LookupDoc -- "New Document" --> RegisterDoc["Begin Transaction:<br/>INSERT INTO documents record"]
+    end
+
+    %% Parsing & Structural Extraction
+    subgraph Parsing ["3. Content Extraction & Metadata Preservation (REQ-02, REQ-05)"]
+        direction TB
+        PurgeOld --> RouteParse{"Route by File Type"}
+        RegisterDoc --> RouteParse
+        
+        RouteParse -- "PDF" --> ParsePDF["pypdf Parser:<br/>Extract text per physical page<br/>Record page_or_section = 'Page X'"]
+        RouteParse -- "Markdown" --> ParseMD["Markdown Parser:<br/>Read frontmatter (source_url, topic)<br/>Extract heading hierarchy (#, ##, ###)"]
+    end
+
+    %% Chunking Engine
+    subgraph Chunking ["4. Dual Chunking Engine (REQ-04)"]
+        direction TB
+        ParsePDF --> ChunkSelect{"Chunking Strategy Selection"}
+        ParseMD --> ChunkSelect
+
+        ChunkSelect -- "Strategy A (Fixed Window)" --> FixedChunk["Sliding Window Chunker:<br/>500 tokens target, 50 tokens overlap<br/>Advance step: 450 tokens"]
+        ChunkSelect -- "Strategy B (Structure-Aware)" --> StructChunk["Hierarchical Chunker:<br/>Split by headings / sections<br/>Cap: 800 tokens (recursive split)<br/>Floor: 50 tokens (coalescing)<br/>Prepend: Heading Context Breadcrumb"]
+        
+        FixedChunk --> GenChunkMeta["Generate Chunk Metadata:<br/>UUID, chunk_index, page_or_section,<br/>source_url, document_date, content_hash"]
+        StructChunk --> GenChunkMeta
+    end
+
+    %% Embedding Cache & Vector Generation
+    subgraph EmbedLayer ["5. Embedding Cache & Vector Generation (REQ-07)"]
+        direction TB
+        GenChunkMeta --> CheckCache{"Query embedding_cache<br/>WHERE content_hash = :hash"}
+        CheckCache -- "Cache Hit" --> ReuseVector["Fetch Cached Vector<br/>(Zero API Cost, Increment cache_hits)"]
+        CheckCache -- "Cache Miss" --> BatchQueue["Buffer for Batch API Call<br/>(Batch size: 16-32 chunks)"]
+        
+        BatchQueue --> CallGemini["Call Google Gemini Embedding API<br/>(text-embedding-004 / 768 dim)<br/>With Exponential Backoff on 429"]
+        CallGemini --> PersistCache["INSERT INTO embedding_cache<br/>(content_hash, model_name, embedding)"]
+    end
+
+    %% Persistence & Job Observability
+    subgraph Persistence ["6. Atomic Database Persistence (REQ-08, REQ-03)"]
+        direction TB
+        ReuseVector --> BulkInsert["INSERT INTO chunks table<br/>(document_id, strategy, content, metadata, embedding)"]
+        PersistCache --> BulkInsert
+        
+        BulkInsert --> CommitTx{"Transaction Success?"}
+        CommitTx -- "Yes" --> CommitDB["COMMIT Transaction<br/>Update ingestion_jobs (status='completed')"]
+        CommitTx -- "No (Error/Failure)" --> RollbackDB["ROLLBACK Transaction<br/>Purge partial data<br/>Update ingestion_jobs (status='failed')"]
+    end
+
+    PDFSource --> CalcFileHash
+    MDSource --> CalcFileHash
+
+    classDef success fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
+    classDef warning fill:#fff3e0,stroke:#e65100,stroke-width:1.5px;
+    classDef storage fill:#e3f2fd,stroke:#1565c0,stroke-width:1.5px;
+    classDef process fill:#f3e5f5,stroke:#6a1b9a,stroke-width:1.5px;
+    classDef alert fill:#ffebee,stroke:#c62828,stroke-width:1.5px;
+
+    class CommitDB,ReuseVector success;
+    class SkipDoc,ExcludeSec warning;
+    class RollbackDB alert;
+    class RegisterDoc,PurgeOld,BulkInsert,PersistCache storage;
+    class FixedChunk,StructChunk,CallGemini,ParsePDF,ParseMD process;

@@ -1,0 +1,44 @@
+{
+  "timestamp_utc": "2026-10-24T16:06:33.968272+00:00",
+  "strategy": "all",
+  "dry_run": true,
+  "total_chunks": 10,
+  "already_cached": 10,
+  "newly_embedded": 0,
+  "failed_chunks": 0,
+  "remaining_unembedded": 0,
+  "total_tokens_processed": 5807,
+  "estimated_cost_usd": 0.0009,
+  "runtime_seconds": 0.01,
+  "interrupted": false,
+  "cache_store": "C:\\Users\\USER\\Desktop\\RAG Task\\data\\cache\\embedding_cache.sqlite",
+  "errors": [],
+  "latest_dry_run": {
+    "timestamp_utc": "2026-10-24T16:06:33.968272+00:00",
+    "strategy": "all",
+    "dry_run": true,
+    "total_chunks": 10,
+    "already_cached": 10,
+    "newly_embedded": 0,
+    "failed_chunks": 0,
+    "remaining_unembedded": 0,
+    "total_tokens_processed": 5807,
+    "estimated_cost_usd": 0.0009,
+    "runtime_seconds": 0.01,
+    "interrupted": false,
+    "cache_store": "C:\\Users\\USER\\Desktop\\RAG Task\\data\\cache\\embedding_cache.sqlite",
+    "errors": []
+  },
+  "strategies": {
+    "all": {
+      "timestamp_utc": "2026-10-24T16:05:48.294594+00:00",
+      "dry_run": false,
+      "total_chunks": 10,
+      "already_cached": 0,
+      "newly_embedded": 10,
+      "failed_chunks": 0,
+      "remaining_unembedded": 0,
+      "completed": true
+    }
+  }
+}

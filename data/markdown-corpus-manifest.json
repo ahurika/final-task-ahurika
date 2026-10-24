@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.0",
+  "verification_status": "VERIFIED_PASSED",
+  "verification_timestamp_utc": "2026-10-23T15:46:39.458270+00:00",
+  "summary": {
+    "total_documents": 14,
+    "minimum_target": 10,
+    "meets_target": true,
+    "total_size_bytes": 306557,
+    "total_words": 44738,
+    "total_headings": 168,
+    "total_code_blocks": 123
+  },
+  "documents": [
+    {
+      "filename": "auth-pg-hba-conf.md",
+      "document_id": "auth-pg-hba-conf",
+      "title": "21.1. The pg_hba.conf File",
+      "topic": "Client Authentication & Security",
+      "source_url": "https://www.postgresql.org/docs/16/auth-pg-hba-conf.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 25906,
+      "sha256_hash": "3cad33df684d0cfc7dd0a59fc485329c8f6c132d2b290a65ea4b3a12c03bbb79",
+      "metrics": {
+        "word_count": 3648,
+        "heading_count": 70,
+        "code_block_count": 3,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "backup-dump.md",
+      "document_id": "backup-dump",
+      "title": "26.1. SQL Dump",
+      "topic": "Backup & Restore",
+      "source_url": "https://www.postgresql.org/docs/16/backup-dump.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 10117,
+      "sha256_hash": "0b46e465b0e3d79cf1d364bec8c6988abadd65c0e0cfbfcc44be0fa78da0ed70",
+      "metrics": {
+        "word_count": 1543,
+        "heading_count": 5,
+        "code_block_count": 15,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "ddl-partitioning.md",
+      "document_id": "ddl-partitioning",
+      "title": "5.11. Table Partitioning",
+      "topic": "Table Partitioning",
+      "source_url": "https://www.postgresql.org/docs/16/ddl-partitioning.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 43647,
+      "sha256_hash": "0bbac6b66fa8d58ef3b12b08cd0a75886d582ffed9a0c741496bae71e1be868c",
+      "metrics": {
+        "word_count": 6378,
+        "heading_count": 14,
+        "code_block_count": 29,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "explicit-locking.md",
+      "document_id": "explicit-locking",
+      "title": "13.3. Explicit Locking",
+      "topic": "Concurrency & Locking",
+      "source_url": "https://www.postgresql.org/docs/16/explicit-locking.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 17802,
+      "sha256_hash": "e67edd5fb723ce2443ef4513d3397a3d569c12acd2466b45bf7dc415dffd9d7c",
+      "metrics": {
+        "word_count": 2788,
+        "heading_count": 7,
+        "code_block_count": 4,
+        "has_tables": true
+      }
+    },
+    {
+      "filename": "indexes-partial.md",
+      "document_id": "indexes-partial",
+      "title": "11.8. Partial Indexes",
+      "topic": "Partial Indexes",
+      "source_url": "https://www.postgresql.org/docs/16/indexes-partial.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 9752,
+      "sha256_hash": "41b65e76473325d64b16c0a9d402eaa3c6278f3c02d5bcc98a6742359a9d7643",
+      "metrics": {
+        "word_count": 1501,
+        "heading_count": 1,
+        "code_block_count": 11,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "indexes-types.md",
+      "document_id": "indexes-types",
+      "title": "11.2. Index Types",
+      "topic": "Index Types (B-Tree, GIN, BRIN, GiST)",
+      "source_url": "https://www.postgresql.org/docs/16/indexes-types.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 7143,
+      "sha256_hash": "e20c63a30dec492ca3eadc5f05399f6af2d9f7564c41424374609c10e3ee0124",
+      "metrics": {
+        "word_count": 985,
+        "heading_count": 7,
+        "code_block_count": 8,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "mvcc-intro.md",
+      "document_id": "mvcc-intro",
+      "title": "13.1. Introduction",
+      "topic": "Transactions & Concurrency",
+      "source_url": "https://www.postgresql.org/docs/16/mvcc-intro.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 1947,
+      "sha256_hash": "99fc6ce1ce08c258d2d020471baa7b371a652025ea0913f35d0344c073427963",
+      "metrics": {
+        "word_count": 237,
+        "heading_count": 1,
+        "code_block_count": 0,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "postgres-fdw.md",
+      "document_id": "postgres-fdw",
+      "title": "F.38. postgres_fdw \u2014 access data stored in external PostgreSQL servers",
+      "topic": "Foreign Data Wrappers",
+      "source_url": "https://www.postgresql.org/docs/16/postgres-fdw.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 35056,
+      "sha256_hash": "75bd6cd4b3bc3cfeb3d88f7aa93d8b18d66b7e50f742840eccebd4c63adf2dac",
+      "metrics": {
+        "word_count": 5052,
+        "heading_count": 21,
+        "code_block_count": 8,
+        "has_tables": true
+      }
+    },
+    {
+      "filename": "routine-vacuuming.md",
+      "document_id": "routine-vacuuming",
+      "title": "25.1. Routine Vacuuming",
+      "topic": "Maintenance & Vacuuming",
+      "source_url": "https://www.postgresql.org/docs/16/routine-vacuuming.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 38482,
+      "sha256_hash": "f1f6ad41216fa7b20a3516bc1b07058845d8625534a6583142909c9fe627f6db",
+      "metrics": {
+        "word_count": 5560,
+        "heading_count": 17,
+        "code_block_count": 6,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "runtime-config-resource.md",
+      "document_id": "runtime-config-resource",
+      "title": "20.4. Resource Consumption",
+      "topic": "Server Configuration",
+      "source_url": "https://www.postgresql.org/docs/16/runtime-config-resource.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 35830,
+      "sha256_hash": "0242a0aa8ce2c895a47ca1b105a785c3330c28d40720d6760bdf4c8c4d658cb2",
+      "metrics": {
+        "word_count": 5316,
+        "heading_count": 8,
+        "code_block_count": 0,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "textsearch-intro.md",
+      "document_id": "textsearch-intro",
+      "title": "12.1. Introduction",
+      "topic": "Full-Text Search",
+      "source_url": "https://www.postgresql.org/docs/16/textsearch-intro.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 14392,
+      "sha256_hash": "969d7340980decec75a797eac4d40c03c4a91fbabefe5b523646f9f8a9d429dd",
+      "metrics": {
+        "word_count": 2165,
+        "heading_count": 5,
+        "code_block_count": 7,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "transaction-iso.md",
+      "document_id": "transaction-iso",
+      "title": "13.2. Transaction Isolation",
+      "topic": "Transactions & Concurrency",
+      "source_url": "https://www.postgresql.org/docs/16/transaction-iso.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 24678,
+      "sha256_hash": "9afce5881678c5bf2265e06c80d2cfa70ee227c39740aab89929057f593372e9",
+      "metrics": {
+        "word_count": 3707,
+        "heading_count": 6,
+        "code_block_count": 7,
+        "has_tables": true
+      }
+    },
+    {
+      "filename": "using-explain.md",
+      "document_id": "using-explain",
+      "title": "14.1. Using EXPLAIN",
+      "topic": "Query Optimization",
+      "source_url": "https://www.postgresql.org/docs/16/using-explain.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 38990,
+      "sha256_hash": "60b01fd151da48de3215b8ff0b0584a1857aaaf1f64297f8fe26061076309931",
+      "metrics": {
+        "word_count": 5443,
+        "heading_count": 4,
+        "code_block_count": 25,
+        "has_tables": false
+      }
+    },
+    {
+      "filename": "wal-intro.md",
+      "document_id": "wal-intro",
+      "title": "30.3. Write-Ahead Logging (WAL)",
+      "topic": "Write-Ahead Logging",
+      "source_url": "https://www.postgresql.org/docs/16/wal-intro.html",
+      "retrieval_date": "2026-10-23",
+      "corpus_version": "PostgreSQL 16",
+      "license": "PostgreSQL License (OSI-approved, BSD-style permissive)",
+      "size_bytes": 2815,
+      "sha256_hash": "a5ab240f4a707b622ca7f07815d830b8a2381ea30ba9a29314211f093a631995",
+      "metrics": {
+        "word_count": 415,
+        "heading_count": 2,
+        "code_block_count": 0,
+        "has_tables": false
+      }
+    }
+  ],
+  "note": "Markdown corpus prepared and verified. Ingestion and vector storage pipelines remain unstarted."
+}
